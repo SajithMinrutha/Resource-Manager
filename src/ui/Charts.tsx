@@ -9,7 +9,6 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import "./Charts.css";
-import { cpu } from "systeminformation";
 
 interface Statistics {
   storage: number;
