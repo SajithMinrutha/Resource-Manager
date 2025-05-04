@@ -1,0 +1,19 @@
+.charts {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+}
+
+.chart-container {
+  background: #222;
+  border-radius: 4px;
+  width: 100%;
+  padding: 0.3rem;
+}
+
+.chart-title {
+  font-size: 0.8rem;
+  color: #fff;
+  margin: 0.3rem 0;
+  text-align: center;
+}

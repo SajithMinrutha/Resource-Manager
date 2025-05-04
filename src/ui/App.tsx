@@ -1,30 +1,30 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-
+import { useEffect, useState } from "react";
 import "./App.css";
+import Charts from "./Charts";
+
+interface Statistics {
+  storage: number;
+  cpu: number;
+  ram: number;
+  diskIO: number;
+  battery: number;
+}
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [statss, setStatss] = useState<Statistics[]>([]);
+
+  useEffect(() => {
+    window.electron.subscribeStatistics((stats: Statistics) => {
+      setStatss((prev) => {
+        const newStats = [...prev, stats];
+        return newStats.length > 100 ? newStats.slice(-100) : newStats; // Keep last 100 stats
+      });
+    });
+  }, []);
 
   return (
     <>
-      <div>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn hehehehww
-      </p>
+      <Charts statss={statss} />
     </>
   );
 }
